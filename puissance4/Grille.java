@@ -1,6 +1,7 @@
 package puissance4;
 
 import java.awt.BorderLayout;
+//import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,8 +21,8 @@ public class Grille extends JFrame implements ActionListener{
 	int[][] tableau_fin = plateau.getTableau();
 	Bouton[][] tableau_bouton;
 	int color;
-	Couleur IA; //Est configurÃ© par Config1 et Config2
-	int IA_difficulte; //Est configurÃ© par Config2, pas plus de 7 pour pas trop d'attente
+	static Couleur IA; //Est configuré par Config1 et Config2
+	int IA_difficulte; //Est configuré par Config2, pas plus de 7 pour pas trop d'attente
 	JProgressBar bar;
 	
 	public Grille(int difficulty, Couleur couleur) {
@@ -57,27 +58,35 @@ public class Grille extends JFrame implements ActionListener{
 		
 		for (int i=0;i<6;i++){
 			for (int j=0;j<7;j++) {
-				Bouton bouton = new Bouton(i,j,Couleur.fromInt(plateau.getTableau()[i][j]),this);
+				Bouton bouton = new Bouton(i,j,Couleur.fromInt(plateau.getTableau()[i][j]), this);
 				tableau_bouton[i][j] = bouton;
 				bouton.setFont(font);
 				bouton.addActionListener(this);
 				grille.add(bouton);
-				
 			}
 		}
 		
-		this.joueur = Couleur.JAUNE;
+		this.joueur = Couleur.JAUNE; // Premiere couleur du joueur/IA (de base jaune)
 		this.setContentPane(panel);
 		if (joueur.equals(IA)) {	//Premier tour de l'IA si besoin
 			if(isState(State.INGAME)) {
-				Coup coupIA = plateau.IA_Decision(joueur, IA_difficulte, this);
-				//System.out.println("L'IA joue y="+coupIA.y + " x=" + coupIA.x); // voir l.111, indique le premier coup jouï¿½ par l'IA
-				placerPiece(joueur,coupIA.y,coupIA.x);
-				if(plateau.verifWin(joueur)) {
-					Victoire victoire = new Victoire(joueur, this, IA_difficulte, IA);
-					victoire.victoire.setAlwaysOnTop(true);
-				}
-				joueur = joueur.opponent();
+				Grille ceci = this;
+				
+				Thread thread = new Thread(
+					() -> {
+						ceci.setState(State.WAITING);
+						Coup coupIA = plateau.IA_Decision(joueur, IA_difficulte, ceci);
+						//System.out.println("L'IA joue "+coupIA); //voir l.74, indique le coup joué par l'IA
+						placerPiece(joueur,coupIA.y,coupIA.x);
+						if(plateau.verifWin(joueur) || plateau.full()) {
+							Victoire victoire = new Victoire(joueur,ceci, plateau.full(), IA_difficulte, IA);
+							victoire.victoire.setAlwaysOnTop(true);
+						}
+						joueur = joueur.opponent();
+						ceci.setState(State.INGAME);
+					}
+			);
+			thread.start();
 			}
 		}
 	}
@@ -92,8 +101,8 @@ public class Grille extends JFrame implements ActionListener{
 		if(isState(State.INGAME)) {
 
 			if(placerPiece(joueur, y, x)) {
-				if(plateau.verifWin(joueur)) {
-					Victoire victoire = new Victoire(joueur, this, IA_difficulte, IA);
+				if(plateau.verifWin(joueur) || plateau.full()) {
+					Victoire victoire = new Victoire(joueur, this, plateau.full(), IA_difficulte, IA);
 					victoire.victoire.setAlwaysOnTop(true);
 				}
 				joueur = joueur.opponent();
@@ -108,10 +117,10 @@ public class Grille extends JFrame implements ActionListener{
 						public void run() {
 							ceci.setState(State.WAITING);
 							Coup coupIA = plateau.IA_Decision(joueur, IA_difficulte, ceci);
-							//System.out.println("L'IA joue "+coupIA); //voir l.74, indique le coup jouÃ© par l'IA
+							//System.out.println("L'IA joue "+coupIA); //voir l.74, indique le coup joué par l'IA
 							placerPiece(joueur,coupIA.y,coupIA.x);
-							if(plateau.verifWin(joueur)) {
-								Victoire victoire = new Victoire(joueur,ceci, IA_difficulte, IA);
+							if(plateau.verifWin(joueur) || plateau.full()) {
+								Victoire victoire = new Victoire(joueur,ceci, plateau.full(), IA_difficulte, IA);
 								victoire.victoire.setAlwaysOnTop(true);
 							}
 							joueur = joueur.opponent();
@@ -129,6 +138,7 @@ public class Grille extends JFrame implements ActionListener{
 		if(plateau.placerPiece(new Coup(ligne, colonne, couleur))) {
 			
 			tableau_bouton[ligne][colonne].setColor(couleur);
+			tableau_bouton[ligne][colonne].requestFocusInWindow();
 			return true;
 			
 		}else return false;

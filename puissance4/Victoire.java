@@ -21,19 +21,25 @@ public class Victoire implements ActionListener{
 	int difficulty;
 	Couleur couleur_config;
 	
-	public Victoire(Couleur couleur, Grille caller, int difficulty_call, Couleur couleur_config_call) {
+	public Victoire(Couleur couleur, Grille caller, boolean full_victoire, int difficulty_call, Couleur couleur_config_call) {
 
 		difficulty = difficulty_call;
 		couleur_config = couleur_config_call;
 		
 		caller.setState(State.END);
 		Font texte = new Font("Arial", Font.BOLD,15);
+		Font texte2 = new Font("Arial", Font.BOLD,25);
 		Font replay_texte = new Font("Arial", Font.BOLD,25);
 		Font oui_non = new Font("Arial", Font.BOLD,70);
-		victoire = new JFrame("Victoire des " + couleur + "S !"); 
+		if(!full_victoire) {
+			victoire = new JFrame("Victoire des " + couleur + "S !"); 
+		}else {
+			victoire = new JFrame("Egalité !"); 
+		}
 		victoire.setSize(500,300);
 		victoire.setResizable(false);
 		victoire.setLocationRelativeTo(null);
+		victoire.setAlwaysOnTop(true);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(3,1));
 		JPanel panel2 = new JPanel();
@@ -42,9 +48,19 @@ public class Victoire implements ActionListener{
 		oui.setToolTipText("Cliquer pour relancer une partie et sa configuration.");
 		non = new JButton("Non");
 		non.setToolTipText("Cliquer pour quitter le jeu.");
-		String text = "   Bravo aux " + couleur + "S qui remportent la partie ! Voulez vous rejouer ?";
+		String text;
+		if(!full_victoire) {
+			text = "Bravo aux " + couleur + "S qui remportent la partie ! Voulez vous rejouer ?";
+		}else {
+			text = "Egalité !!! Voulez vous rejouer ?";
+		}
 		JLabel test = new JLabel(text);
-		test.setFont(texte);
+		test.setHorizontalAlignment(JLabel.CENTER);
+		if(!full_victoire) {
+			test.setFont(texte);
+		}else {
+			test.setFont(texte2);
+		}
 		panel1.add(test);
 		oui.setFont(oui_non);
 		non.setFont(oui_non);
@@ -53,8 +69,8 @@ public class Victoire implements ActionListener{
 		panel2.add(oui);
 		panel2.add(non);
 		panel1.add(panel2);
-		replay = new JButton("Rejouer avec la mÃªme configuration");
-		replay.setToolTipText("Rejouer avec la mÃªme difficultï¿½ et la mï¿½me couleur (mï¿½me personne : IA ou vous qui commence).");
+		replay = new JButton("Rejouer avec la même configuration");
+		replay.setToolTipText("Rejouer avec la même difficulté et la même couleur (même personne : IA ou vous qui commence).");
 		replay.setFont(replay_texte);
 		replay.addActionListener(this);
 		panel1.add(replay);
@@ -63,7 +79,6 @@ public class Victoire implements ActionListener{
 		this.caller = caller;
 		
 	}
-
 
 
 	@Override
@@ -86,6 +101,7 @@ public class Victoire implements ActionListener{
 				caller.dispose();
 				Grille newGrille = new Grille(difficulty, couleur_config);
 				newGrille.setVisible(true);
+				newGrille.tableau_bouton[5][3].requestFocusInWindow(); //Met le focus sur le bon bouton
 				
 			}else {
 		
