@@ -34,6 +34,7 @@ public class Config extends JFrame{
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		this.add(panel);
@@ -91,20 +92,20 @@ public class Config extends JFrame{
 		JSeparator sep = new JSeparator();
 		panel.add(sep);
 		
-		//Choix de la difficulté
+		//Choix de la difficultÃ©
 		
 		Font diff_font = new Font("ARIAL", Font.BOLD, 15);
-		JSlider diff = new JSlider(0,10); //Difficulté entre 0 et x
+		JSlider diff = new JSlider(0,10); //DifficultÃ© entre 0 et x
 		diff.setFont(diff_font);
 		Font text_font = new Font("ARIAL", Font.BOLD, 20);
-		String text = "Niveau de difficulté de l'IA ?";
+		String text = "Niveau de difficultÃ© de l'IA ?";
 		JLabel choix_label = new JLabel(text);
 		choix_label.setFont(text_font);
 		choix_label.setHorizontalAlignment(JLabel.CENTER);
 		
-		diff.setToolTipText("Choisissez la difficulté de l'IA."
-				+ " Pour une difficulté de 0, elle jouera aléatoirement."
-				+ " Attention, plus la difficulté augmente, plus le temps de calcul augmente");
+		diff.setToolTipText("Choisissez la difficultÃ© de l'IA."
+				+ " Pour une difficultÃ© de 0, elle jouera alÃ©atoirement."
+				+ " Attention, plus la difficultÃ© augmente, plus le temps de calcul augmente");
 		
 		diff.setMinorTickSpacing(1);
 		diff.setMajorTickSpacing(1);

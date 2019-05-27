@@ -8,8 +8,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class Bouton extends JButton{
 
@@ -70,31 +68,7 @@ public class Bouton extends JButton{
 			}
 		});
 		
-		
-		
-		this.addMouseListener(new MouseListener() {
-
-			public void mouseClicked(MouseEvent arg0) {
-				//System.out.println("Clicked " +x+" " +y);
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-				//System.out.println("Entered " +x+" " +y);
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-				//System.out.println("Exited " +x+" " +y);
-			}
-
-			public void mousePressed(MouseEvent arg0) {
-				//System.out.println("Pressed " +x+" " +y);
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
-				//System.out.println("Released " +x+" " +y);
-			}
-			
-		});
+	
 		
 	}
 	

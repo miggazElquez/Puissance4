@@ -34,11 +34,13 @@ public class Victoire implements ActionListener{
 		if(!full_victoire) {
 			victoire = new JFrame("Victoire des " + couleur + "S !"); 
 		}else {
-			victoire = new JFrame("Egalit� !"); 
+			victoire = new JFrame("Egalité !"); 
 		}
+		victoire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		victoire.setSize(500,300);
 		victoire.setResizable(false);
-		victoire.setLocationRelativeTo(null);
+		victoire.setLocation(null);		
+		
 		victoire.setAlwaysOnTop(true);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(3,1));
@@ -52,7 +54,7 @@ public class Victoire implements ActionListener{
 		if(!full_victoire) {
 			text = "Bravo aux " + couleur + "S qui remportent la partie ! Voulez vous rejouer ?";
 		}else {
-			text = "Egalit� !!! Voulez vous rejouer ?";
+			text = "Egalité !!! Voulez vous rejouer ?";
 		}
 		JLabel test = new JLabel(text);
 		test.setHorizontalAlignment(JLabel.CENTER);
@@ -69,13 +71,13 @@ public class Victoire implements ActionListener{
 		panel2.add(oui);
 		panel2.add(non);
 		panel1.add(panel2);
-		replay = new JButton("Rejouer avec la m�me configuration");
-		replay.setToolTipText("Rejouer avec la m�me difficult� et la m�me couleur (m�me personne : IA ou vous qui commence).");
+		replay = new JButton("Rejouer avec la même configuration");
+		replay.setToolTipText("Rejouer avec la même difficult� et la même couleur (m�me personne : IA ou vous qui commence).");
 		replay.setFont(replay_texte);
 		replay.addActionListener(this);
 		panel1.add(replay);
 		victoire.add(panel1);
-		//victoire.setVisible(true);
+		victoire.setVisible(true);
 		this.caller = caller;
 		
 	}

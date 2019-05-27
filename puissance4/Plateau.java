@@ -19,7 +19,7 @@ public class Plateau {
 		return tableau;
 	}
 	
-	//Cette fonction nous permet de voir où sont les jetons (c'est un debug)
+	//Cette fonction nous permet de voir oï¿½ sont les jetons (c'est un debug)
 	public void printTab() {
 		
 		System.out.println("-----------------------------");
@@ -205,8 +205,7 @@ public class Plateau {
 		
 		return nb;
 		
-	}
-	
+	}	
 	
 	public int valeur(int joueur) {return valeur(Couleur.fromInt(joueur));}
 	
