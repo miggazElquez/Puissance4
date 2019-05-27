@@ -18,7 +18,7 @@ public class Bouton extends JButton{
 	int y;
 	Grille grille;
 	
-	Font font = new Font("Times New Roman", Font.BOLD,160);
+	Font font = new Font("Times New Roman", Font.BOLD,160); 
 	
 	public Bouton(int y,int x, Couleur color, Grille grille) {
 		
@@ -68,15 +68,13 @@ public class Bouton extends JButton{
 			}
 		});
 		
-	
-		
 	}
 	
 	public void setColor(Couleur color) {
 		
 		this.setFont(font);
 		this.color = color;
-		this.setText("\u25CF");
+		this.setText("\u25CF"); 
 		if(color.equals(Couleur.VIDE)) {
 			this.setText("");
 		}else {

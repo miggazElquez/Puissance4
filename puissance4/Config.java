@@ -30,11 +30,10 @@ public class Config extends JFrame{
 	public Config() {
 		
 		this.setTitle("Configuration");
-		this.setSize(500,300);
+		this.setSize(550,350);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		this.add(panel);

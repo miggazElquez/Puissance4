@@ -205,7 +205,8 @@ public class Plateau {
 		
 		return nb;
 		
-	}	
+	}
+	
 	
 	public int valeur(int joueur) {return valeur(Couleur.fromInt(joueur));}
 	
@@ -235,7 +236,7 @@ public class Plateau {
 		
 		ArrayList<Coup> bonCoup = new ArrayList<Coup>();
 		int score;
-		int valMax = - 1000;
+		int valMax = -1000;
 		int i=0;
 		//int  taille = listeCoupPossible.size();
 		for (Coup coup : listeCoupPossible) {
@@ -293,19 +294,6 @@ public class Plateau {
 			}
 		}
 		return valMin;
-	}
-	
-	public Plateau copie() {
-		int[][] nouv_tableau = new int[6][7];
-		for (int i=0;i<6;i++) {
-			for (int j=0;j<7;j++) {
-				nouv_tableau[i][j] = tableau[i][j];
-			}
-		}
-		
-		Plateau nouvPlateau = new Plateau();
-		nouvPlateau.tableau = nouv_tableau;
-		return nouvPlateau;
 	}
 
 	private int max(int couleur, int profondeur,int valMaxPossible) {

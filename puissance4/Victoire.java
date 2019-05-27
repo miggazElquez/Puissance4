@@ -36,11 +36,9 @@ public class Victoire implements ActionListener{
 		}else {
 			victoire = new JFrame("Egalité !"); 
 		}
-		victoire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		victoire.setSize(500,300);
 		victoire.setResizable(false);
-		victoire.setLocation(null);		
-		
+		victoire.setLocationRelativeTo(null);
 		victoire.setAlwaysOnTop(true);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(3,1));
@@ -96,7 +94,7 @@ public class Victoire implements ActionListener{
 			newGrille.setVisible(true);
 			
 		}else {
-			
+
 			if(cible == replay) {
 				
 				victoire.dispose();

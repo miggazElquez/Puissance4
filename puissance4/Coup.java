@@ -7,9 +7,9 @@ public class Coup {
 	
 	public Coup(int y, int x, Couleur couleur){
 		
-		if (!isValid()) {
-			System.out.println("ATTENTION !!! un coup a été créé avec y = "+y+" et x = "+x);
-		}
+		/*if (!isValid()) {
+			System.out.println("ATTENTION !!! un coup a Ã©tÃ© crÃ©e avec y = "+y+" et x = "+x);
+		}*/
 		this.x = x;
 		this.y = y;
 		this.couleur = couleur;
